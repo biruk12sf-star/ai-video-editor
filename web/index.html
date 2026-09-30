@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous AI Video Director | Gemini Vision + ElevenLabs</title>
+  <meta name="description" content="Autonomous AI Video Director powered by Google Gemini 3.6 Multimodal Vision and ElevenLabs Adam Voiceover. Automatically watches, writes, voices, and edits viral shorts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Ambient background glow effects -->
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">PRO v2.5</div>
+        <div class="logo-text">
+          <span class="logo-accent">AUTONOMOUS</span> AI DIRECTOR
+        </div>
+      </div>
+      <div class="system-pills">
+        <div class="pill live-pill"><span class="dot"></span> READY</div>
+        <div class="pill tech-pill">Gemini 3.6 Vision</div>
+        <div class="pill tech-pill">ElevenLabs Adam</div>
+        <div class="pill tech-pill">FFmpeg VFX Engine</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-section">
+      <h1 class="hero-title">Zero Human Video Editing.<br><span class="gradient-text">100% Multimodal AI Intelligence.</span></h1>
+      <p class="hero-subtitle">Paste any viral video link or upload raw footage. Our autonomous director watches every frame, detects micro-beats, scripts hilarious storytelling narration, and composites a ready-to-post vertical Short.</p>
+    </section>
+
+    <!-- Main Creation Deck -->
+    <div class="creation-deck glass-card">
+      <div class="deck-tabs">
+        <button id="tab-url" class="tab-btn active" onclick="switchTab('url')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          Paste Video URL
+        </button>
+        <button id="tab-upload" class="tab-btn" onclick="switchTab('upload')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          Upload Local Video
+        </button>
+        <button id="tab-auto" class="tab-btn" onclick="switchTab('auto')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          Autonomous Feed Scraper
+        </button>
+      </div>
+
+      <!-- Tab 1: URL Input -->
+      <div id="panel-url" class="tab-panel active">
+        <div class="input-group">
+          <label for="video-url-input" class="input-label">YouTube Shorts or Reddit URL</label>
+          <div class="input-wrapper">
+            <input type="text" id="video-url-input" placeholder="https://www.youtube.com/watch?v=... or https://reddit.com/r/..." class="text-input">
+            <button id="btn-submit-url" class="btn btn-primary" onclick="submitVideo('url')">
+              <span>Launch AI Director</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="demo-pills">
+          <span class="demo-label">Quick Test Clips:</span>
+          <button class="demo-pill" onclick="loadDemoUrl('https://www.youtube.com/watch?v=aP2up9N6H-g')">🥫 Pringles Stuck Commercial</button>
+          <button class="demo-pill" onclick="loadDemoUrl('https://www.youtube.com/watch?v=pvEOoUHFqYI')">🎯 Slingshot Trickshot</button>
+          <button class="demo-pill" onclick="loadDemoUrl('https://www.youtube.com/watch?v=DUTLiybIrmk')">🧗 Impossible Dyno Climb</button>
+        </div>
+      </div>
+
+      <!-- Tab 2: Upload Input -->
+      <div id="panel-upload" class="tab-panel">
+        <div class="upload-dropzone" id="dropzone" onclick="triggerFileInput()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleFileDrop(event)">
+          <input type="file" id="file-input" accept="video/mp4,video/quicktime,video/webm,video/x-matroska" style="display:none;" onchange="handleFileSelected(event)">
+          <div class="dropzone-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+          </div>
+          <div class="dropzone-text" id="dropzone-label">
+            <span class="highlight">Click to upload</span> or drag and drop any MP4 / MOV video
+          </div>
+          <div class="dropzone-sub">Supported formats: MP4, MOV, MKV, WebM (Max 150MB)</div>
+        </div>
+        <div class="upload-action" id="upload-action-row" style="display:none;">
+          <button id="btn-submit-upload" class="btn btn-primary btn-block" onclick="submitVideo('upload')">
+            <span>Process Uploaded Video with AI Director</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 3: Autonomous Scraper -->
+      <div id="panel-auto" class="tab-panel">
+        <div class="auto-panel-info">
+          <div class="auto-icon">⚡</div>
+          <h3>100% Hands-Free Viral Discovery</h3>
+          <p>The AI will live-scrape Reddit (r/Unexpected, r/nextfuckinglevel) & YouTube Shorts, download the #1 trending video under 60 seconds, analyze its storyline with Gemini Vision, synthesize Adam voiceover, and composite a 9:16 vertical short.</p>
+          <button id="btn-submit-auto" class="btn btn-special" onclick="submitVideo('auto')">
+            <span>Scrape & Edit Trending Video Right Now</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Config Controls Bar -->
+      <div class="config-bar">
+        <div class="config-item">
+          <label class="config-label">Canvas Ratio</label>
+          <div class="ratio-selector">
+            <button class="ratio-btn active" data-ratio="9:16" onclick="setRatio('9:16')">
+              <span class="ratio-icon">📱</span> 9:16 (Shorts/Reels)
+            </button>
+            <button class="ratio-btn" data-ratio="1:1" onclick="setRatio('1:1')">
+              <span class="ratio-icon">🟦</span> 1:1 (LinkedIn Feed)
+            </button>
+            <button class="ratio-btn" data-ratio="16:9" onclick="setRatio('16:9')">
+              <span class="ratio-icon">🖥️</span> 16:9 (Split Screen)
+            </button>
+          </div>
+        </div>
+
+        <div class="config-item">
+          <label class="config-label">Voiceover Engine</label>
+          <select id="voice-select" class="select-input">
+            <option value="adam" selected>🎙️ ElevenLabs: Adam (Viral Storyteller)</option>
+            <option value="brian">🤖 Edge-TTS: Brian (Fast Paced)</option>
+          </select>
+        </div>
+
+        <div class="config-item">
+          <label class="config-label">Pacing & Director Mode</label>
+          <select id="mode-select" class="select-input">
+            <option value="rapid_fire" selected>⚡ Rapid-Fire Recap (Scene-by-Scene Micro-Beats)</option>
+            <option value="standard">🎬 Standard Commentary (Key Highlights)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Execution Console (Visible during processing) -->
+    <section id="console-card" class="console-card glass-card" style="display: none;">
+      <div class="console-header">
+        <div class="console-title">
+          <span class="spinner"></span>
+          <span id="console-status-text">AI Director Initializing...</span>
+        </div>
+        <div class="progress-pct" id="progress-pct-label">0%</div>
+      </div>
+
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-bar-fill" style="width: 5%;"></div>
+      </div>
+
+      <div class="terminal-box" id="terminal-box">
+        <div class="terminal-line"><span class="t-dim">[00:00]</span> Initializing autonomous video pipeline...</div>
+      </div>
+    </section>
+
+    <!-- Results Section (Visible when complete) -->
+    <section id="results-card" class="results-card glass-card" style="display: none;">
+      <div class="results-header">
+        <h2>🎉 Video Render Complete & Ready to Publish!</h2>
+        <a id="btn-download-main" href="#" download class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Download Master Video
+        </a>
+      </div>
+
+      <div class="results-grid">
+        <!-- Video Player -->
+        <div class="player-wrapper">
+          <video id="result-video" controls playsinline class="rendered-video-player"></video>
+        </div>
+
+        <!-- Upload Kit & Metadata Cards -->
+        <div class="kit-container">
+          <div class="kit-card">
+            <div class="kit-card-header">
+              <span class="kit-label">📌 YouTube Title</span>
+              <button class="copy-btn" onclick="copyField('kit-title')">Copy</button>
+            </div>
+            <div id="kit-title" class="kit-text-content"></div>
+          </div>
+
+          <div class="kit-card">
+            <div class="kit-card-header">
+              <span class="kit-label">📝 Description & Hashtags</span>
+              <button class="copy-btn" onclick="copyField('kit-desc')">Copy</button>
+            </div>
+            <div id="kit-desc" class="kit-text-content multi-line"></div>
+          </div>
+
+          <div class="kit-card">
+            <div class="kit-card-header">
+              <span class="kit-label">🏷️ Video Tags</span>
+              <button class="copy-btn" onclick="copyField('kit-tags')">Copy</button>
+            </div>
+            <div id="kit-tags" class="kit-text-content"></div>
+          </div>
+
+          <div class="kit-card">
+            <div class="kit-card-header">
+              <span class="kit-label">💬 Pinned Comment</span>
+              <button class="copy-btn" onclick="copyField('kit-comment')">Copy</button>
+            </div>
+            <div id="kit-comment" class="kit-text-content"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery of Recent Creations -->
+    <section class="gallery-section">
+      <div class="gallery-header">
+        <h2 class="section-title">Recent Autonomous Masterpieces</h2>
+        <span class="gallery-sub">Rendered locally on your machine</span>
+      </div>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-loading">Loading recent creations...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>Autonomous AI Video Director • Google Gemini 3.6 Flash • ElevenLabs Voice AI • FFmpeg & MoviePy</p>
+    </div>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

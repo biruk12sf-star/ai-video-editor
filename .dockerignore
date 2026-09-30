@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.git
+.github
+*.mp4
+*.flac
+*.glb
+chrome_debug_profile
+scratch
+.agents
