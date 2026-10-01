@@ -19,18 +19,13 @@ if sys.platform == 'win32':
 
 # Load environment variables
 current_dir = os.path.abspath(os.path.dirname(__file__))
-nigga_dir = os.path.abspath(os.path.join(current_dir, "..", "nigga"))
-if not os.path.exists(os.path.join(nigga_dir, "run_viral_pipeline.py")):
-    nigga_dir = current_dir
+env_path = os.path.join(current_dir, ".env")
+if os.path.exists(env_path):
+    load_dotenv(env_path, override=True)
+else:
+    load_dotenv(override=True)
 
-env_path = os.path.join(nigga_dir, ".env")
-if not os.path.exists(env_path):
-    env_path = os.path.join(current_dir, ".env")
-load_dotenv(env_path, override=True)
-
-# Add directories to sys.path
-if nigga_dir not in sys.path:
-    sys.path.insert(0, nigga_dir)
+# Add directory to sys.path
 if current_dir not in sys.path:
     sys.path.insert(0, current_dir)
 
@@ -48,10 +43,10 @@ app.add_middleware(
 )
 
 # Directories
-STATIC_DIR = os.path.join(os.path.dirname(__file__), "web")
-VIDEOS_DIR = os.path.join(nigga_dir, "videos")
-EDITED_DIR = os.path.join(nigga_dir, "edited")
-METADATA_DIR = os.path.join(nigga_dir, "metadata")
+STATIC_DIR = os.path.join(current_dir, "web")
+VIDEOS_DIR = os.path.join(current_dir, "videos")
+EDITED_DIR = os.path.join(current_dir, "edited")
+METADATA_DIR = os.path.join(current_dir, "metadata")
 
 os.makedirs(VIDEOS_DIR, exist_ok=True)
 os.makedirs(EDITED_DIR, exist_ok=True)
