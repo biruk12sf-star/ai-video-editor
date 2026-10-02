@@ -157,12 +157,20 @@ def download_with_ytdlp(post_url, sub_name, title_text):
         'outtmpl': output_mp4,
         'merge_output_format': 'mp4',
         'quiet': True,
-        'ignoreerrors': True,
+        'ignoreerrors': False,
         'no_warnings': True,
         'nocheckcertificate': True,
         'geo_bypass': True,
-        'retries': 10,
-        'fragment_retries': 10
+        'extractor_args': {
+            'youtube': {
+                'player_client': ['android', 'ios', 'web']
+            }
+        },
+        'http_headers': {
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 12; Pixel 6 Build/SD1A.210817.036) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36'
+        },
+        'retries': 5,
+        'fragment_retries': 5
     }
     if HAS_FFMPEG and FFMPEG_EXE:
         ydl_opts['ffmpeg_location'] = FFMPEG_EXE
@@ -172,14 +180,14 @@ def download_with_ytdlp(post_url, sub_name, title_text):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([post_url])
     except Exception as e:
-        print(f"   ⚠️ Primary download note: {str(e)[:60]}")
+        print(f"   ⚠️ Primary download note: {str(e)[:100]}")
         try:
-            print(f"   ⚠️ Single pre-merged stream fallback...")
+            print(f"   ⚠️ Single stream fallback...")
             ydl_opts['format'] = 'b/best'
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 ydl.download([post_url])
-        except Exception:
-            pass
+        except Exception as e2:
+            print(f"   ⚠️ Fallback failed: {str(e2)[:100]}")
             
     if os.path.exists(output_mp4) and os.path.getsize(output_mp4) > 100000:
         return {
